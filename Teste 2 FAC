@@ -1,0 +1,73 @@
+//Luiz Felipe de Jorge da Silva
+
+#include <stdio.h>
+
+float gastoCombustivel(int distancia, float consumo){
+    float calcGasto;
+    calcGasto = distancia/consumo;
+    return calcGasto;
+}
+
+int main(void){
+    int distancia, percursos, contPercursos, gastoMaiorCinco;
+    int igualMenorCinco, distMenorIgualcinco;
+    int maiorDist, dias, percursoGastoMaior;
+    float combustivelGasto, consumo, percMaiorCinco;
+    float gastoMedio, totalGasto, mediaIgualMenorCinco;
+    float gastoMaiorDist, maiorGasto;
+    contPercursos=0;
+    totalGasto=0;
+    igualMenorCinco=0;
+    distMenorIgualcinco=0;
+    maiorDist=0;
+    gastoMaiorDist=0;
+    maiorGasto=0;
+    dias=1;
+    while (dias<=4){
+    printf("\nQuantos percursos foram feitos?");
+    scanf("%d", &percursos);
+      while (contPercursos<percursos){
+        contPercursos++;
+        printf("\nDiga a distancia do %dº percurso:", contPercursos);
+        scanf("%d", &distancia);
+        printf("\nDiga o consumo do veículo:");
+        scanf("%f", &consumo);
+        combustivelGasto = gastoCombustivel(distancia, consumo);
+        printf("\nO gasto de combustível no percurso foi de %.2f", combustivelGasto);
+        totalGasto+=combustivelGasto;
+        if (combustivelGasto>5){
+            gastoMaiorCinco++;
+        }
+        else{
+            igualMenorCinco++;
+            distMenorIgualcinco+=distancia;
+        }
+        if (maiorDist<distancia){
+            maiorDist = distancia;
+            gastoMaiorDist = combustivelGasto;
+        }
+        if (maiorGasto<combustivelGasto){
+            maiorGasto=combustivelGasto;
+            percursoGastoMaior = percursos;
+        }
+      }
+      printf("\nO maior gasto foi no percurso %d e foi de %.2f", percursoGastoMaior, maiorGasto);
+      contPercursos=0;
+      totalGasto=0;
+      igualMenorCinco=0;
+      distMenorIgualcinco=0;
+      dias++;
+    }
+    if (gastoMaiorCinco>0){
+        printf("\nEm %d percursos o gasto de combustivel foi maior que 5", gastoMaiorCinco);
+        percMaiorCinco = (float)gastoMaiorCinco / percursos*100;
+        printf("Isso significa %.2f%% dos percursos", percMaiorCinco);
+    }
+    if (igualMenorCinco>0){
+        mediaIgualMenorCinco = distMenorIgualcinco/igualMenorCinco;
+    }
+    gastoMedio = totalGasto / percursos;
+    printf("\nO gasto médio de combustivel foi de:%.2f", gastoMedio);
+    printf("\na maior distância percorrida foi de %d e nela foram gastados %.2f litros de combustivel", maiorDist, gastoMaiorDist);
+    return 0;
+}
